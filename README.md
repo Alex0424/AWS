@@ -1,5 +1,3 @@
 # AWS
 
-i follow these tutorials: https://www.youtube.com/watch?v=bgPuPSPZe2U
-
-more info coming soon
+this is a place where you can find usefull usefull stuff & cli commands for AWS
