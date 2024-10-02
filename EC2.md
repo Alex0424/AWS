@@ -45,13 +45,13 @@ Chose an AMI --> Chose an instance type --> configure the instance --> adding st
 ## EC2 instance creation order
 
 1. **Requirements Gathering**
-  1. OS
-  2. Size => Ram, CPU, Network etc.
-  3. Storage size
-  4. Firewall & Security Group Rules
-  5. Project (Services/Apps Running: SSH, HTTP, Mysql etc)
-  6. Enviroment(Dev,QA,Staging,Prod)
-  7. Login User/Owner
+   1. OS
+   2. Size => Ram, CPU, Network etc.
+   3. Storage size
+   4. Firewall & Security Group Rules
+   5. Project (Services/Apps Running: SSH, HTTP, Mysql etc)
+   6. Enviroment(Dev,QA,Staging,Prod)
+   7. Login User/Owner
 2. **Create Key-Pairs**
 3. **Setup Security Groups**
 4. **Instance Launch**
