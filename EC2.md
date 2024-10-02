@@ -46,7 +46,7 @@ Chose an AMI --> Chose an instance type --> configure the instance --> adding st
 
 1. **Requirements Gathering**
    1. OS
-   2. Size => Ram, CPU, Network etc.
+   2. Size => Ram, CPU, Network etc: https://aws.amazon.com/ec2/instance-types/
    3. Storage size
    4. Firewall & Security Group Rules
    5. Project (Services/Apps Running: SSH, HTTP, Mysql etc)
@@ -65,4 +65,3 @@ Security groups are "stateful". if inbound rule is updated, then same rule will 
 Inbound rules: Trafic coming from outside in to the instance.
 
 Outbound rules: Trafic going from Instance to outside.
-
