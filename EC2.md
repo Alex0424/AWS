@@ -65,3 +65,9 @@ Security groups are "stateful". if inbound rule is updated, then same rule will 
 Inbound rules: Trafic coming from outside in to the instance.
 
 Outbound rules: Trafic going from Instance to outside.
+
+## Elastic IP
+
+this is a permanent IP that you can assosiate for your Instance or Network Interface
+
+ 
