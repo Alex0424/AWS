@@ -94,6 +94,8 @@ https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html
 - Attach the volume created from snapshot
 - Mount it back
 
+# ADMIN AWS TIPS AND TRICKS
+
 ### Create EBS Volume and mounte to Instance
 
 EC2 > Volumes > Create Volume > Create
