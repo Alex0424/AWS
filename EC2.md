@@ -94,7 +94,29 @@ https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html
 - Attach the volume created from snapshot
 - Mount it back
 
-# ADMIN AWS TIPS AND TRICKS
+## ELB - Elastic Load Balancer
+
+PORTS:
+
+Frontend Ports: Listens from the user requests on this port AKA Listeners. e.g. 80, 443, 25 etc.
+
+Backend Ports: Services running on OS listening on this port. e.g. 80, 443, 8080 etc.
+
+Elastic Load Balancing distributes incoming application or network traffic across multiple targets, such as Amazon EC2 instances, containers and IP addresses, in multiple Availability Zones.
+
+Elastic Load Balancing supports three types of load balancers:
+- Application Load Balancer
+  - routes traffic based on the advanced application level information that includes the content of the request (https://domain/request).
+- Network Load Balancer
+  - handles millions of requests per second
+- Classic Load Balancer
+  - routes traffic based on either application or network level information
+
+more info: https://docs.aws.amazon.com/elasticloadbalancing/
+
+
+
+# ############################ ADMIN AWS TIPS AND TRICKS ############################
 
 ### Create EBS Volume and mounte to Instance
 
@@ -168,5 +190,13 @@ mount -a
 df -h
 systemctl start mariadb
 ```
+
+### Clone Instance to an AMI IMAGE
+
+go to instances > Action > image and templates > create image
+
+in EC/images/AMIs. your image should be cloned here
+
+you can copy ami to a different region: AMIs > Action > copy
 
 
