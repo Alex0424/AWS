@@ -70,4 +70,101 @@ Outbound rules: Trafic going from Instance to outside.
 
 this is a permanent IP that you can assosiate for your Instance or Network Interface
 
- 
+## Elastic Block Storage
+
+Block based storage
+
+Runs ec2 OS, store data from db, file data, etc
+
+Placed in specific AZ. Automatically replicated within the AZ to protect from failure.
+
+Snapshot is a backup of a volume
+
+### EBS Types
+
+SSD, IOPS, HDD, COLD HDD, etc...
+
+https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html
+
+### Snapshot Backup & Restore
+
+- Unmount partition
+- Detach volume
+- Create new volume from snapshot
+- Attach the volume created from snapshot
+- Mount it back
+
+### Create EBS Volume and mounte to Instance
+
+EC2 > Volumes > Create Volume > Create
+
+select `Action` on your newly created volume and select `Attach volume`
+
+select your instance and then type `attach`
+
+SSH into the VM
+```
+sudo -i
+fdisk -l
+df -h
+
+fdisk /dev/xvdb
+Command (m for help): n
+Command (m for help): p
+Command (m for help): 1
+First sector (2048-10485759, default 2048): `Hit enter`
+Last sector, +/-sectors or +/-size{K,M,G,T,P} (2048-10485759, default 10485759): `Hit enter to use all space` or specify how much GB should be allocated to disk e.g. `+3G`
+Command (m for help): p
+Command (m for help): w
+
+#format partition
+mkfs.ext4 /dev/xvdb1
+
+#move files
+mkdir /tmp/img-backups
+mv /var/www/html/images/* /tmp/img-backups/
+
+mount /dev/xvdb1 /var/www/html/images/
+df -h
+umount /var/www/html/images
+lsof /var/www/html/images #if the command above dosent work | this lists what processes uses the directory so kill those and try again with command above
+
+
+################################### steps below: will make make the mount persistent, so it will survive reboots
+
+vi /etc/fstab
+/dev/xvdb1    /var/www/html/images    ext4 defaults    0 0 #add this line to the file
+mount -a
+df -h
+mv /tmp/img-backups/* /var/www/html/images/
+systemctl restart httpd
+```
+
+### Create Snapshots in AWS
+
+volumes > Actions > Create Snapshot
+
+SSH in VM:
+```
+# make sure to stop any services that are on that volume-directory before umount e.g.:
+lsof /var/lib/mysql/
+systemctl stop mariadb
+umount /var/lib/mysql/
+umount -l /var/lib/mysql #remove with force (use with caution)
+df -h
+```
+
+detach volume in AWS + rename to corrupted if it is so.
+
+chose your snapshot `Action` select `create volume from snapshot` # create image from snapshot is possible if it has a snapshot of "/" root directory
+
+go to volumes and find your newly created volume. click `Actions` and then `Attach volume`
+
+SSH in VM:
+```
+mount -a
+df -h
+systemctl start mariadb
+```
+
+
