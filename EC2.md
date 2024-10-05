@@ -86,7 +86,7 @@ SSD, IOPS, HDD, COLD HDD, etc...
 
 https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html
 
-### Snapshot Backup & Restore
+## Snapshot Backup & Restore
 
 - Unmount partition
 - Detach volume
@@ -95,8 +95,6 @@ https://docs.aws.amazon.com/ebs/latest/userguide/ebs-volume-types.html
 - Mount it back
 
 ## ELB - Elastic Load Balancer
-
-PORTS:
 
 Frontend Ports: Listens from the user requests on this port AKA Listeners. e.g. 80, 443, 25 etc.
 
@@ -113,8 +111,6 @@ Elastic Load Balancing supports three types of load balancers:
   - routes traffic based on either application or network level information
 
 more info: https://docs.aws.amazon.com/elasticloadbalancing/
-
-
 
 # ############################ ADMIN AWS TIPS AND TRICKS ############################
 
@@ -195,8 +191,47 @@ systemctl start mariadb
 
 go to instances > Action > image and templates > create image
 
-in EC/images/AMIs. your image should be cloned here
+in EC2/images/AMIs. your image should be cloned here
 
-you can copy ami to a different region: AMIs > Action > copy
+quick info: you can copy ami to a different region: AMIs > Action > copy
+
+then create a `Launch Template`, add AMI to it so you can launch the instance quick.
+
+### Load Balancing
+
+go to Target Group > Create Target Group
+
+target type: `Instances`
+
+port `HTTP` #or 80
+
+Healthy threshold `2`
+
+Unhealthy threshold `2`
+
+Timeout `5` seconds
+
+Interval `30` seconds
+
+Sucess codes `200`
+
+On next page select 2 instances or more, ports for instances `80` and click on `Include as pending below`. `Create target group`
+
+go to Load Balancers > Create Load Balancer
+
+create application load balancer
+
+Scheme: `Internet-facing`
+
+IP: `IPv4`
+
+Mappings: `Select all zones or 5-10 zones`
+
+select or create a security group for your load balancer with port 80 allowed from all IPv4 addresses
+
+Listeners and routing: Protocol `HTTP` Port `80`, select your `target your group`
+
+`Create Load Balancer`
+
 
 
